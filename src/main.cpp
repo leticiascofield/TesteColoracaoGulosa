@@ -33,7 +33,7 @@ class Sort{
        for(int i = 0; i < n-1; i++){
             for(int j = 1; j < n-i; j++){
                 if(vertices[j]->cor == vertices[j-1]->cor){
-                    if(vertices[j]->id > vertices[j-1]->id){
+                    if(vertices[j]->id < vertices[j-1]->id){
                         Troca(vertices[j], vertices[j-1]);
                     }
                 }
@@ -75,6 +75,37 @@ class Sort{
                 j--;
             }
             vertices[j+1] = aux;
+        }
+    }
+
+    void HeapSort(Vertice* vertices[], int n) {
+        for (int i = n / 2 - 1; i >= 0; i--) {
+            Heapify(vertices, n, i);
+        }
+
+        for (int i = n - 1; i > 0; i--) {
+            Troca(vertices[0], vertices[i]);
+            Heapify(vertices, i, 0);
+        }
+        Estabilizar(vertices, n);
+    }
+
+        void Heapify(Vertice* vertices[], int n, int i) {
+        int max = i;
+        int esq = 2 * i + 1;
+        int dir = 2 * i + 2;
+
+        if (esq < n && vertices[esq]->cor > vertices[max]->cor) {
+            max = esq;
+        }
+
+        if (dir < n && vertices[dir]->cor > vertices[max]->cor) {
+            max = dir;
+        }
+
+        if (max != i) {
+            Troca(vertices[i], vertices[max]);
+            Heapify(vertices, n, max);
         }
     }
 };
@@ -123,7 +154,7 @@ int main (){
         cin >> vertices[i]->cor;
     }
 
-    for(int i = 0; i < n; i++){
+    /*for(int i = 0; i < n; i++){
         cout << "Vértice " << i << ", grau " << vertices[i]->grau
         << " e cor " << vertices[i]->cor << endl;
         cout << "Lista Adj: ";
@@ -131,7 +162,7 @@ int main (){
             cout << vertices[i]->listaAdj[j] << " ";
         }
         cout << endl;
-    }
+    }*/
 
     Sort sort;
     cout << Guloso(vertices, n) << " ";
@@ -145,6 +176,9 @@ int main (){
                 break;
             case 'i':
                 sort.InsertionSort(vertices, n);
+                break;
+            case 'p':
+                sort.HeapSort(vertices, n);
                 break;
             default:
                 cout << "Erro: comando inválido." << endl;
