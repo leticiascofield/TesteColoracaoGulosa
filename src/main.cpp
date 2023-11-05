@@ -197,6 +197,23 @@ class Sort{
         }
     }
 
+    void MySort(Vertice* vertices[], int n){ //Confere as cores dos vertices e vai adicionando ao aux já na ordem correta
+        Vertice* aux[n];
+        int k = 0;
+
+        for(int i = 1; i < n; i++){ //para possiveis pelas cores
+            for(int j = 0; j < n; j++){ //para passar por cada vertice
+                if(vertices[j]->cor == i){ //se o vertice tiver a tal cor, entra
+                    aux[k] = vertices[j];
+                    k++;
+                }
+            }
+        }
+
+        for(int i = 1; i < n; i++){ 
+            vertices[i] = aux[i];
+        }
+    }
 };
 
 bool Guloso(Vertice* vertices[], int n) {
@@ -274,6 +291,9 @@ int main (){
                 break;
             case 'p':
                 sort.HeapSort(vertices, n);
+                break;
+            case 'y':
+                sort.MySort(vertices, n);
                 break;
             default:
                 cout << "Erro: comando inválido." << endl;
