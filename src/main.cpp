@@ -78,6 +78,57 @@ class Sort{
         }
     }
 
+    void MergeSort(Vertice* vertices[], int esq, int dir) {
+        if(esq < dir){
+            int meio = esq + (dir - esq)/2;
+            MergeSort(vertices, esq, meio);
+            MergeSort(vertices, meio+1, dir);
+            Merge(vertices, esq, meio, dir);
+        }
+    }
+
+    void Merge(Vertice* vertices[], int esq, int meio, int dir) {
+        int n1 = meio - esq + 1;
+        int n2 = dir - meio;
+
+        Vertice* L[n1];
+        Vertice* R[n2];
+
+        for (int i = 0; i < n1; i++) {
+            L[i] = vertices[esq + i];
+        }
+        for (int j = 0; j < n2; j++) {
+            R[j] = vertices[meio + 1 + j];
+        }
+
+        int i = 0;
+        int j = 0;
+        int k = esq;
+
+        while(i < n1 && j < n2){
+            if(L[i]->cor <= R[j]->cor){
+                vertices[k] = L[i];
+                i++;
+            } else {
+                vertices[k] = R[j];
+                j++;
+            }
+            k++;
+        }
+
+        while(i < n1){
+            vertices[k] = L[i];
+            i++;
+            k++;
+        }
+        while(j < n2){
+            vertices[k] = R[j];
+            j++;
+            k++;
+        }
+
+    }
+
     void HeapSort(Vertice* vertices[], int n) {
         for (int i = n / 2 - 1; i >= 0; i--) {
             Heapify(vertices, n, i);
@@ -90,7 +141,7 @@ class Sort{
         Estabilizar(vertices, n);
     }
 
-        void Heapify(Vertice* vertices[], int n, int i) {
+    void Heapify(Vertice* vertices[], int n, int i) {
         int max = i;
         int esq = 2 * i + 1;
         int dir = 2 * i + 2;
@@ -108,6 +159,7 @@ class Sort{
             Heapify(vertices, n, max);
         }
     }
+
 };
 
 bool Guloso(Vertice* vertices[], int n) {
@@ -176,6 +228,9 @@ int main (){
                 break;
             case 'i':
                 sort.InsertionSort(vertices, n);
+                break;
+            case 'm':
+                sort.MergeSort(vertices, 0, n-1);
                 break;
             case 'p':
                 sort.HeapSort(vertices, n);
