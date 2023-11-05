@@ -78,6 +78,43 @@ class Sort{
         }
     }
 
+    void QuickSort(Vertice* vertices[], int n){
+        Ordena(vertices, 0, n-1);
+        Estabilizar(vertices, n);
+    }
+
+    void Ordena(Vertice* vertices[], int esq, int dir){
+        int i, j;
+        Particao(vertices, esq, dir, &i, &j);
+        if(esq < j){
+            Ordena(vertices, esq, j);
+        }
+        if(i < dir){
+            Ordena(vertices, i, dir);
+        }
+    }
+
+    void Particao(Vertice* vertices[], int esq, int dir, int* i, int* j){
+        Vertice* x;
+        *i = esq;
+        *j = dir;
+        x = vertices[(*i + *j)/2];
+
+        do{
+            while(x->cor > vertices[*i]->cor){
+                (*i)++;
+            }
+            while(x->cor < vertices[*j]->cor){
+                (*j)--;
+            }
+            if(*i <= *j){
+                Troca(vertices[*i], vertices[*j]);
+                (*i)++;
+                (*j)--;
+            }
+        } while(*i <= *j);
+    }
+
     void MergeSort(Vertice* vertices[], int esq, int dir) {
         if(esq < dir){
             int meio = esq + (dir - esq)/2;
@@ -228,6 +265,9 @@ int main (){
                 break;
             case 'i':
                 sort.InsertionSort(vertices, n);
+                break;
+            case 'q':
+                sort.QuickSort(vertices, n);
                 break;
             case 'm':
                 sort.MergeSort(vertices, 0, n-1);
