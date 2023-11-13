@@ -1,11 +1,12 @@
 #include "Vertice.hpp"
 
-    Vertice::Vertice(){}
-    Vertice::Vertice(int _grau){
-        grau = _grau;
-        listaAdj = new int[_grau];
-    }
+Vertice::Vertice(){}
 
-    Vertice::~Vertice(){
-        delete[] listaAdj;
-    }
+Vertice::Vertice(int _grau){
+    this->grau = _grau;
+    this->listaAdj = new int[_grau];
+}
+
+Vertice::~Vertice(){
+    delete[] listaAdj;
+}
