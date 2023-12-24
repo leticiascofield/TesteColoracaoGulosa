@@ -44,7 +44,7 @@ void SelectionSort(Vertice* vertices[], int n){
         }
         Troca(vertices[i], vertices[min]);
     }
-    //Estabilizar(vertices, n);
+    Estabilizar(vertices, n);
 }
 
 void InsertionSort(Vertice* vertices[], int n){
@@ -243,56 +243,39 @@ int main (){
         cin >> vertices[i]->cor;
     }
 
-    std::chrono::_V2::system_clock::time_point start;
-    std::chrono::_V2::system_clock::time_point end;
     cout << Guloso(vertices, n) << " ";
     if(Guloso(vertices, n)) {
         switch(c) {
             case 'b':
-                start = std::chrono::high_resolution_clock::now();
                 BubbleSort(vertices, n);
-                end = std::chrono::high_resolution_clock::now();
                 break;
             case 's':
-                start = std::chrono::high_resolution_clock::now();
                 SelectionSort(vertices, n);
-                end = std::chrono::high_resolution_clock::now();
                 break;
             case 'i':
-                start = std::chrono::high_resolution_clock::now();
                 InsertionSort(vertices, n);
-                end = std::chrono::high_resolution_clock::now();
                 break;
             case 'q':
-                start = std::chrono::high_resolution_clock::now();
                 QuickSort(vertices, n);
-                end = std::chrono::high_resolution_clock::now();
                 break;
             case 'm':
-                start = std::chrono::high_resolution_clock::now();
                 MergeSort(vertices, 0, n-1);
-                end = std::chrono::high_resolution_clock::now();
                 break;
             case 'p':
-                start = std::chrono::high_resolution_clock::now();
                 HeapSort(vertices, n);
-                end = std::chrono::high_resolution_clock::now();
                 break;
             case 'y':
-                start = std::chrono::high_resolution_clock::now();
                 MySort(vertices, n);
-                end = std::chrono::high_resolution_clock::now();
                 break;
             default:
                 cout << "Erro: comando inválido." << endl;
         }
 
-        auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
         for(int i = 0; i < n; i++){
             cout << vertices[i]->id << " ";
         }
-        cout << endl << "Tempo de execução: " << duration;
     }
+
     cout << endl;
 
     for(int i = 0; i < n; i++){

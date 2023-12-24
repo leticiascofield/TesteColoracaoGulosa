@@ -1,7 +1,7 @@
-CC=g++
-CFLAGS= -Wall -g
+CC = g++
+CFLAGS = -Wall -g
 
-TARGET= ./bin/tp2.out
+TARGET = ./bin/tp2.out
 OBJ_DIR = ./obj
 SRC_DIR = ./src
 INCLUDE_DIR = ./include
